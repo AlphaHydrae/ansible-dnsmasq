@@ -1,0 +1,13 @@
+---
+
+# Homebrew
+- name: brew install dnsmasq
+  homebrew: name=dnsmasq state=installed
+  become: true
+  become_user: "{{ dnsmasq_brew_user }}"
+  when: ansible_pkg_mgr == 'homebrew'
+- name: brew services start dnsmasq
+  shell: su - root -c "{{ dnsmasq_brew_bin }} services start dnsmasq"
+  register: result
+  changed_when: result.rc != 0
+  when: ansible_pkg_mgr == 'homebrew'
