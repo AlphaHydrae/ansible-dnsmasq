@@ -1,13 +1,17 @@
 ---
 
 # Homebrew
-- name: brew install dnsmasq
-  homebrew: name=dnsmasq state=installed
+- name: Install dnsmasq (Homebrew)
+  homebrew: name=dnsmasq state=present
   become: true
-  become_user: "{{ dnsmasq_brew_user }}"
+  become_user: "{{ dnsmasq_homebrew_user }}"
   when: ansible_pkg_mgr == 'homebrew'
-- name: brew services start dnsmasq
-  shell: su - root -c "{{ dnsmasq_brew_bin }} services start dnsmasq"
+- name: Start dnsmasq (Homebrew)
+  shell: su - root -c "{{ dnsmasq_homebrew_bin }} services start dnsmasq"
   register: result
   changed_when: result.rc != 0
   when: ansible_pkg_mgr == 'homebrew'
+
+# Other package managers
+- fail: msg="{{ ansible_pkg_mgr }} is not a supported package manager (Homebrew is supported)"
+  when: ansible_pkg_mgr != 'homebrew'
