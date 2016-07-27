@@ -6,6 +6,11 @@
   become: true
   become_user: "{{ dnsmasq_homebrew_user }}"
   when: ansible_pkg_mgr == 'homebrew'
+- name: Create dnsmasq configuration from sample (Homebrew)
+  command: cp /usr/local/opt/dnsmasq/dnsmasq.conf.example /usr/local/etc/dnsmasq.conf creates=/usr/local/etc/dnsmasq.conf
+  become: true
+  become_user: "{{ dnsmasq_homebrew_user }}"
+  when: ansible_pkg_mgr == 'homebrew'
 - name: Start dnsmasq (Homebrew)
   shell: su - root -c "{{ dnsmasq_homebrew_bin }} services start dnsmasq"
   register: result
