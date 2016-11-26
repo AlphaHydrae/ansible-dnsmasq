@@ -12,7 +12,9 @@
   become_user: "{{ dnsmasq_homebrew_user }}"
   when: ansible_pkg_mgr == 'homebrew'
 - name: Start dnsmasq (Homebrew)
-  shell: su - root -c "{{ dnsmasq_homebrew_bin }} services start dnsmasq"
+  shell: "{{ dnsmasq_homebrew_bin }} services start dnsmasq"
+  become: true
+  become_user: root
   register: result
   changed_when: result.rc != 0
   when: ansible_pkg_mgr == 'homebrew'
