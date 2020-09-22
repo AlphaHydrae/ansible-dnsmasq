@@ -1,3 +1,0 @@
----
-dnsmasq_homebrew_bin: "{{ homebrew_bin | default('/usr/local/bin/brew') }}"
-dnsmasq_homebrew_user: "{{ homebrew_user | default(user) | default(omit) }}"

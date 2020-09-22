@@ -12,4 +12,7 @@ galaxy_info:
   galaxy_tags:
     - dnsmasq
 
-dependencies: []
+dependencies:
+  - role: AlphaHydrae.homebrew-service
+    homebrew_service: dnsmasq
+    homebrew_service_start_user: root
